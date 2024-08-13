@@ -13,7 +13,8 @@ module.exports = grammar({
           repeat($.class_or_id),
           optional($.attributes),
           optional($.inline_text),
-          optional(seq($._newline, $.children)),
+          optional($._newline),
+          optional($.children),
         ),
       ),
 
