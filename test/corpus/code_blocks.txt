@@ -1,22 +1,97 @@
 ==================
-Test Pug code block
+Test Basic Code Block
 ==================
 
-- var title = "Hello"
-- if title
-  h1= title
+div
+  | console.log('Hello, world!')
 ----
 (source_file
-  (code_block
-    (inline_text)
+  (tag
+    (tag_name)
+    (code_block
+      (code_line)
+    )
   )
-  (code_block
-    (inline_text)
-    (indented_block
-      (tag
-        (tag_name)
-        (inline_text)
+)
+
+==================
+Test Multi-Line Code Block
+==================
+
+div
+  | console.log('Hello, world!')
+  | console.log('Goodbye, world!')
+----
+(source_file
+  (tag
+    (tag_name)
+    (code_block
+      (code_line)
+      (code_line)
+    )
+  )
+)
+
+==================
+Test Code Block with Empty Lines
+==================
+
+div
+  | console.log('Hello, world!')
+
+  | console.log('Goodbye, world!')
+----
+(source_file
+  (tag
+    (tag_name)
+    (code_block
+      (code_line)
+      (code_line)
+    )
+  )
+)
+
+==================
+Test Nested Code Blocks
+==================
+
+div
+  p
+    | console.log('Inside paragraph')
+  | console.log('Outside paragraph')
+----
+(source_file
+  (tag
+    (tag_name)
+    (tag
+      (tag_name)
+      (code_block
+        (code_line)
       )
+    )
+    (code_block
+      (code_line)
+    )
+  )
+)
+
+==================
+Test Code Block with Mixed Content
+==================
+
+div
+  p This is a paragraph
+  | console.log('This is code')
+----
+(source_file
+  (tag
+    (tag_name)
+    (tag
+      (tag_name)
+      (inline_text)
+    )
+    (code_block
+      (code_line)
     )
   )
 )
