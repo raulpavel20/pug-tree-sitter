@@ -1,24 +1,80 @@
 ==================
-Test nested Pug tags
+Test Simple Nested Tag
 ==================
 
 div
-  span
-    p Paragraph text
+  p
 ----
 (source_file
   (tag
     (tag_name)
-    (indented_block
-      (tag
-        (tag_name)
-        (indented_block
-          (tag
-            (tag_name)
-            (inline_text)
-          )
-        )
+    (tag
+      (tag_name)
+    )
+  )
+)
+
+==================
+Test Nested Tags with Attributes
+==================
+
+div(class="container")
+  p(class="text")
+----
+(source_file
+  (tag
+    (tag_name)
+    (attributes
+      (attribute
+        (attribute_name)
+        (attribute_value))
+    )
+    (tag
+      (tag_name)
+      (attributes
+        (attribute
+          (attribute_name)
+          (attribute_value))
       )
+    )
+  )
+)
+
+==================
+Test Nested Tags with Text Content
+==================
+
+div
+  p This is a paragraph
+----
+(source_file
+  (tag
+    (tag_name)
+    (tag
+      (tag_name)
+      (inline_text)
+    )
+  )
+)
+
+==================
+Test Multiple Nested Tags
+==================
+
+div
+  p Paragraph 1
+  p Paragraph 2
+----
+(source_file
+  (tag
+    (tag_name)
+    (tag
+      (tag_name)
+      (inline_text)
+    )
+    (tag
+      (tag_name)
+      (inline_text)
     )
   )
 )
