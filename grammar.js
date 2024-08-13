@@ -12,15 +12,15 @@ module.exports = grammar({
           $.tag_name,
           repeat($.class_or_id),
           optional($.attributes),
-          optional($.inline_text),
+          optional(seq($._space, $.inline_text)),
           optional($._newline),
           optional($.children),
         ),
       ),
 
-    tag_name: ($) => /\w(?:[-\w]*\w)?/,
+    tag_name: () => /\w(?:[-\w]*\w)?/,
 
-    class_or_id: ($) => token(seq(choice(".", "#"), /[_a-zA-Z0-9-]+/)),
+    class_or_id: () => token(seq(choice(".", "#"), /[_a-zA-Z0-9-]+/)),
 
     attributes: ($) => seq("(", repeat($.attribute), ")"),
 
@@ -31,13 +31,15 @@ module.exports = grammar({
         choice($.quoted_attribute_value, $.unquoted_attribute_value),
       ),
 
-    attribute_name: ($) => /[\w@\-:]+/,
+    attribute_name: () => /[\w@\-:]+/,
 
-    quoted_attribute_value: ($) => token(seq('"', /[^"]*/, '"')),
+    quoted_attribute_value: () => token(seq('"', /[^"]*/, '"')),
 
-    unquoted_attribute_value: ($) => /[^)\s]+/,
+    unquoted_attribute_value: () => /[^)\s]+/,
 
-    inline_text: ($) => /[^(\n][^\n]*/,
+    _space: () => token.immediate(/ +/),
+
+    inline_text: () => /[^\n]+/,
 
     children: ($) =>
       prec.right(

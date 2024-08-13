@@ -41,8 +41,17 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "inline_text"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_space"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "inline_text"
+                  }
+                ]
               },
               {
                 "type": "BLANK"
@@ -179,9 +188,16 @@
       "type": "PATTERN",
       "value": "[^)\\s]+"
     },
+    "_space": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": " +"
+      }
+    },
     "inline_text": {
       "type": "PATTERN",
-      "value": "[^(\\n][^\\n]*"
+      "value": "[^\\n]+"
     },
     "children": {
       "type": "PREC_RIGHT",

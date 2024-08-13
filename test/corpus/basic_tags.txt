@@ -92,3 +92,28 @@ input(type=text name=username)
     )
   )
 )
+
+==================
+Test tag with all elements
+==================
+
+div.main#container(class="content" id="header") Welcome to Pug!
+----
+(source_file
+  (tag
+    (tag_name)
+    (class_or_id)
+    (class_or_id)
+    (attributes
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value)
+      )
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value)
+      )
+    )
+    (inline_text)
+  )
+)
