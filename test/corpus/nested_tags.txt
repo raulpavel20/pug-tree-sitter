@@ -1,0 +1,24 @@
+==================
+Test nested Pug tags
+==================
+
+div
+  span
+    p Paragraph text
+----
+(source_file
+  (tag
+    (tag_name)
+    (indented_block
+      (tag
+        (tag_name)
+        (indented_block
+          (tag
+            (tag_name)
+            (inline_text)
+          )
+        )
+      )
+    )
+  )
+)

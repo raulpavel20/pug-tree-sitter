@@ -1,0 +1,29 @@
+==================
+Test Pug mixin definition
+==================
+
+mixin button(class)
+  button(class=class) Click me
+----
+(source_file
+  (mixin
+    (mixin_name)
+    (attributes
+      (attribute
+        (attribute_name)
+      )
+    )
+    (indented_block
+      (tag
+        (tag_name)
+        (attributes
+          (attribute
+            (attribute_name)
+            (attribute_value)
+          )
+        )
+        (inline_text)
+      )
+    )
+  )
+)

@@ -1,0 +1,28 @@
+==================
+Test Pug conditional block
+==================
+
+if user.isLoggedIn
+  p Welcome back!
+else
+  p Please log in
+----
+(source_file
+  (conditional
+    (expression) @expression
+    (indented_block
+      (tag
+        (tag_name) @tag_name
+        (inline_text) @inline_text
+      )
+    )
+  )
+  (conditional
+    (indented_block
+      (tag
+        (tag_name) @tag_name
+        (inline_text) @inline_text
+      )
+    )
+  )
+)

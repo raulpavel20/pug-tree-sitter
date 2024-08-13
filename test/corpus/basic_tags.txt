@@ -1,0 +1,70 @@
+==================
+Test basic Pug tag
+==================
+
+div
+----
+(source_file
+  (tag
+    (tag_name)
+  )
+)
+
+==================
+Test Pug tag with inline text
+==================
+
+div Hello, world!
+----
+(source_file
+  (tag
+    (tag_name)
+    (inline_text)
+  )
+)
+
+==================
+Test Pug tag with class
+==================
+
+div.main
+----
+(source_file
+  (tag
+    (tag_name)
+    (class_or_id)
+  )
+)
+
+==================
+Test Pug tag with ID
+==================
+
+div#container
+----
+(source_file
+  (tag
+    (tag_name)
+    (class_or_id)
+  )
+)
+
+==================
+Test Pug tag with attributes
+==================
+
+div(class="main" id="header")
+----
+(source_file
+  (tag
+    (tag_name)
+    (class_or_id)
+    (class_or_id)
+    (attributes
+      (attribute
+        (attribute_name)
+        (attribute_value)
+      )
+    )
+  )
+)

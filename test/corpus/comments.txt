@@ -1,0 +1,19 @@
+==================
+Test Pug comment
+==================
+
+// This is a comment
+----
+(source_file
+  (comment)
+)
+
+==================
+Test Pug unbuffered comment
+==================
+
+//- This is an unbuffered comment
+----
+(source_file
+  (comment)
+)

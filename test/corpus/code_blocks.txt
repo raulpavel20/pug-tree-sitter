@@ -1,0 +1,22 @@
+==================
+Test Pug code block
+==================
+
+- var title = "Hello"
+- if title
+  h1= title
+----
+(source_file
+  (code_block
+    (inline_text)
+  )
+  (code_block
+    (inline_text)
+    (indented_block
+      (tag
+        (tag_name)
+        (inline_text)
+      )
+    )
+  )
+)

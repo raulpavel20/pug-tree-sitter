@@ -1,0 +1,11 @@
+==================
+Test Pug text line
+==================
+
+| This is a line of text
+----
+(source_file
+  (text
+    (inline_text)
+  )
+)

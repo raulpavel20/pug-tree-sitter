@@ -1,116 +1,130 @@
 module.exports = grammar({
   name: "pug",
 
-  extras: ($) => [
-    /\s/, // Whitespace
-    $.comment, // Comments
-  ],
-
-  externals: ($) => [
-    $._newline, // Newline handling
-    $._indent, // Indentation increase
-    $._dedent, // Indentation decrease
-  ],
+  extras: ($) => [/\s/],
 
   rules: {
-    source_file: ($) => repeat($._block),
-
-    _block: ($) =>
-      choice(
-        $.tag,
-        $.text,
-        $.code_block,
-        $.mixin,
-        $.conditional,
-        $.loop,
-        $.doctype,
-        $.comment,
+    source_file: ($) =>
+      repeat(
+        choice(
+          $.tag,
+          $.doctype,
+          $.comment,
+          $.mixin_definition,
+          $.mixin_call,
+          $.conditional,
+          $.loop,
+          $.text,
+        ),
       ),
 
-    // **Tag Rule**
-    // Matches lines starting with a tag name, optionally followed by classes, IDs, attributes, inline text, and an indented block.
     tag: ($) =>
-      seq(
-        field("name", $.tag_name),
-        repeat(choice($.class_or_id, $.attributes)),
-        optional(field("inline_text", $.inline_text)),
-        optional(field("block", $.indented_block)),
+      prec.right(
+        seq(
+          $.tag_name,
+          optional($.id),
+          optional($.class),
+          optional($.attributes),
+          optional($.block),
+          optional($.newline),
+        ),
       ),
 
-    tag_name: ($) => /[a-zA-Z][a-zA-Z0-9-_]*/,
+    tag_name: ($) => /[a-zA-Z0-9_-]+/,
 
-    class_or_id: ($) =>
-      choice(
-        seq(".", /[a-zA-Z][a-zA-Z0-9-_]*/),
-        seq("#", /[a-zA-Z][a-zA-Z0-9-_]*/),
-      ),
+    id: ($) => seq("#", /[a-zA-Z0-9_-]+/),
 
-    attributes: ($) => seq("(", optional(commaSep($.attribute)), ")"),
+    class: ($) => repeat1(seq(".", /[a-zA-Z0-9_-]+/)),
+
+    attributes: ($) => seq("(", commaSep($.attribute), ")"),
 
     attribute: ($) =>
-      seq(
-        field("name", $.attribute_name),
-        optional(seq("=", field("value", $.attribute_value))),
+      choice(
+        seq($.attribute_name, "=", $.attribute_value),
+        $.boolean_attribute,
       ),
 
-    attribute_name: ($) => /[a-zA-Z][a-zA-Z0-9-_]*/,
+    attribute_name: ($) => /[a-zA-Z0-9_-]+/,
 
-    attribute_value: ($) => choice($.string, $.expression),
+    attribute_value: ($) => choice($.string, $.interpolated_text),
 
-    string: ($) => choice(/"[^"]*"/, /'[^']*'/),
+    boolean_attribute: ($) => $.attribute_name,
 
-    expression: ($) => /[^)\n]+/,
+    string: ($) => choice(seq('"', /[^"]*/, '"'), seq("'", /[^']*/, "'")),
 
-    inline_text: ($) => seq(" ", /[^\n]+/),
+    interpolated_text: ($) => seq("#{", $.expression, "}"),
 
-    // **Indented Block**
-    // Represents a nested block of content, indented relative to its parent.
-    indented_block: ($) =>
-      seq($._newline, $._indent, repeat1($._block), $._dedent),
+    expression: ($) => /[^}]+/,
 
-    // **Text Rule**
-    // Matches lines starting with '|' followed by optional text.
-    text: ($) => seq("|", optional(seq(" ", /[^\n]+/))),
+    text: ($) => /[^\n]+/,
 
-    // **Code Block**
-    // Matches lines starting with '-' followed by code and an optional indented block.
-    code_block: ($) =>
-      seq("-", optional(seq(" ", /[^\n]+/)), optional($.indented_block)),
+    doctype: ($) => seq("doctype", $.text),
 
-    // **Mixin**
-    // Matches mixin definitions.
-    mixin: ($) =>
-      seq(
-        "mixin",
-        " ",
-        field("name", $.tag_name),
-        optional($.attributes),
-        optional($.indented_block),
+    comment: ($) =>
+      prec.right(
+        choice(
+          seq("//-", optional($.text)), // Block comment
+          seq("//", optional($.text)), // Inline comment
+        ),
       ),
 
-    // **Conditional**
-    // Matches 'if', 'else if', and 'else' statements with optional blocks.
+    block: ($) =>
+      prec.right(seq(optional($.newline), repeat1($.indentation_rule))),
+
+    indentation_rule: ($) =>
+      seq(
+        $.indent,
+        choice($.tag, $.text, $.comment, $.mixin_call, $.conditional, $.loop),
+      ),
+
+    mixin_definition: ($) =>
+      seq("mixin", $.mixin_name, optional($.mixin_parameters), $.block),
+
+    mixin_name: ($) => /[a-zA-Z0-9_-]+/,
+
+    mixin_parameters: ($) => seq("(", commaSep($.parameter), ")"),
+
+    parameter: ($) => /[a-zA-Z0-9_-]+/,
+
+    mixin_call: ($) =>
+      prec.right(
+        seq("+", $.mixin_name, optional($.mixin_arguments), optional($.block)),
+      ),
+
+    mixin_arguments: ($) => seq("(", commaSep($.argument), ")"),
+
+    argument: ($) => $.expression,
+
     conditional: ($) =>
-      seq(
-        choice("if", "else if", "else"),
-        optional(seq(" ", $.expression)),
-        optional($.indented_block),
+      prec.right(
+        choice(
+          seq("if", $.expression, $.block, optional($.else_clause)),
+          seq("unless", $.expression, $.block),
+        ),
       ),
 
-    // **Loop**
-    // Matches 'each' loops with optional blocks.
-    loop: ($) => seq("each", " ", $.expression, optional($.indented_block)),
+    else_clause: ($) =>
+      choice(seq("else", $.block), seq("else if", $.expression, $.block)),
 
-    // **Doctype**
-    // Matches doctype declarations.
-    doctype: ($) => seq("doctype", " ", /[^\n]+/),
+    loop: ($) =>
+      choice(
+        seq("each", $.loop_variable, "in", $.expression, $.block),
+        seq("while", $.expression, $.block),
+      ),
 
-    // **Comment**
-    // Matches both regular and unbuffered comments.
-    comment: ($) => token(choice(seq("//-", /.*/), seq("//", /.*/))),
+    loop_variable: ($) =>
+      choice(seq($.variable, optional(seq(",", $.index))), $.variable),
+
+    variable: ($) => /[a-zA-Z0-9_-]+/,
+
+    index: ($) => /[a-zA-Z0-9_-]+/,
+
+    newline: ($) => /\n/,
+
+    indent: ($) => /[ \t]+/,
   },
 });
 
 function commaSep(rule) {
-  return seq(rule, repeat(seq(",", rule)));
+  return optional(seq(rule, repeat(seq(",", rule))));
 }

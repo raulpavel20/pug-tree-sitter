@@ -1,28 +1,40 @@
 [
   {
+    "type": "argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "attribute_name",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "attribute_value",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_name",
+          "named": true
+        },
+        {
+          "type": "attribute_value",
+          "named": true
+        },
+        {
+          "type": "boolean_attribute",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -39,7 +51,7 @@
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "interpolated_text",
           "named": true
         },
         {
@@ -65,12 +77,46 @@
     }
   },
   {
-    "type": "class_or_id",
+    "type": "block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "indentation_rule",
+          "named": true
+        },
+        {
+          "type": "newline",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "boolean_attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class",
     "named": true,
     "fields": {}
   },
   {
-    "type": "code_block",
+    "type": "comment",
     "named": true,
     "fields": {},
     "children": {
@@ -78,7 +124,7 @@
       "required": false,
       "types": [
         {
-          "type": "indented_block",
+          "type": "text",
           "named": true
         }
       ]
@@ -90,14 +136,18 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "block",
           "named": true
         },
         {
-          "type": "indented_block",
+          "type": "else_clause",
+          "named": true
+        },
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -106,10 +156,20 @@
   {
     "type": "doctype",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
   },
   {
-    "type": "indented_block",
+    "type": "else_clause",
     "named": true,
     "fields": {},
     "children": {
@@ -117,9 +177,29 @@
       "required": true,
       "types": [
         {
-          "type": "code_block",
+          "type": "block",
           "named": true
         },
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "id",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "indentation_rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
           "type": "comment",
           "named": true
@@ -129,7 +209,7 @@
           "named": true
         },
         {
-          "type": "doctype",
+          "type": "indent",
           "named": true
         },
         {
@@ -137,7 +217,7 @@
           "named": true
         },
         {
-          "type": "mixin",
+          "type": "mixin_call",
           "named": true
         },
         {
@@ -152,9 +232,24 @@
     }
   },
   {
-    "type": "inline_text",
+    "type": "index",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "interpolated_text",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "loop",
@@ -165,45 +260,124 @@
       "required": true,
       "types": [
         {
+          "type": "block",
+          "named": true
+        },
+        {
           "type": "expression",
           "named": true
         },
         {
-          "type": "indented_block",
+          "type": "loop_variable",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "mixin",
+    "type": "loop_variable",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "tag_name",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "index",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mixin_arguments",
+    "named": true,
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "attributes",
-          "named": true
-        },
-        {
-          "type": "indented_block",
+          "type": "argument",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "mixin_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "mixin_arguments",
+          "named": true
+        },
+        {
+          "type": "mixin_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mixin_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "mixin_name",
+          "named": true
+        },
+        {
+          "type": "mixin_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mixin_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "mixin_parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "source_file",
@@ -213,10 +387,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "code_block",
-          "named": true
-        },
         {
           "type": "comment",
           "named": true
@@ -234,7 +404,11 @@
           "named": true
         },
         {
-          "type": "mixin",
+          "type": "mixin_call",
+          "named": true
+        },
+        {
+          "type": "mixin_definition",
           "named": true
         },
         {
@@ -256,48 +430,33 @@
   {
     "type": "tag",
     "named": true,
-    "fields": {
-      "block": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "indented_block",
-            "named": true
-          }
-        ]
-      },
-      "inline_text": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "inline_text",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "tag_name",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "attributes",
           "named": true
         },
         {
-          "type": "class_or_id",
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "class",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "newline",
+          "named": true
+        },
+        {
+          "type": "tag_name",
           "named": true
         }
       ]
@@ -309,16 +468,24 @@
     "fields": {}
   },
   {
-    "type": "text",
+    "type": "variable",
     "named": true,
     "fields": {}
   },
   {
-    "type": " ",
+    "type": "\"",
     "named": false
   },
   {
     "type": "#",
+    "named": false
+  },
+  {
+    "type": "#{",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
@@ -330,11 +497,11 @@
     "named": false
   },
   {
-    "type": ",",
+    "type": "+",
     "named": false
   },
   {
-    "type": "-",
+    "type": ",",
     "named": false
   },
   {
@@ -342,12 +509,16 @@
     "named": false
   },
   {
-    "type": "=",
+    "type": "//",
     "named": false
   },
   {
-    "type": "comment",
-    "named": true
+    "type": "//-",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
   },
   {
     "type": "doctype",
@@ -374,11 +545,35 @@
     "named": false
   },
   {
+    "type": "in",
+    "named": false
+  },
+  {
+    "type": "indent",
+    "named": true
+  },
+  {
     "type": "mixin",
     "named": false
   },
   {
-    "type": "|",
+    "type": "newline",
+    "named": true
+  },
+  {
+    "type": "text",
+    "named": true
+  },
+  {
+    "type": "unless",
+    "named": false
+  },
+  {
+    "type": "while",
+    "named": false
+  },
+  {
+    "type": "}",
     "named": false
   }
 ]
