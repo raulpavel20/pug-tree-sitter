@@ -1,6 +1,8 @@
 module.exports = grammar({
   name: "pug",
 
+  externals: ($) => [$._newline, $._indent, $._dedent],
+
   rules: {
     source_file: ($) => repeat($.tag),
 
@@ -10,20 +12,31 @@ module.exports = grammar({
         repeat($.class_or_id),
         optional($.attributes),
         optional($.inline_text),
+        optional($.children),
       ),
 
-    tag_name: ($) => /[a-zA-Z0-9_-]+/,
+    tag_name: ($) => /\w(?:[-\w]*\w)?/,
 
-    class_or_id: ($) => token(seq(choice(".", "#"), /[a-zA-Z0-9_-]+/)),
+    class_or_id: ($) => token(seq(choice(".", "#"), /[_a-zA-Z0-9-]+/)),
 
     attributes: ($) => seq("(", repeat($.attribute), ")"),
 
-    attribute: ($) => seq($.attribute_name, "=", $.attribute_value),
+    attribute: ($) =>
+      seq(
+        $.attribute_name,
+        "=",
+        choice($.quoted_attribute_value, $.unquoted_attribute_value),
+      ),
 
-    attribute_name: ($) => /[a-zA-Z0-9_-]+/,
+    attribute_name: ($) => /[\w@\-:]+/,
 
-    attribute_value: ($) => token(seq('"', /[^"]*/, '"')),
+    quoted_attribute_value: ($) => token(seq('"', /[^"]*/, '"')),
 
-    inline_text: ($) => /[^.#(]+/,
+    unquoted_attribute_value: ($) => /[^)\s]+/,
+
+    inline_text: ($) => /[^(\n][^\n]*/,
+
+    children: ($) =>
+      prec.right(seq($._newline, $._indent, repeat1($.tag), $._dedent)),
   },
 });

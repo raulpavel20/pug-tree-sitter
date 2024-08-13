@@ -50,7 +50,7 @@ div#container
 )
 
 ==================
-Test Pug tag with attributes
+Test Pug tag with quoted attributes
 ==================
 
 div(class="main" id="header")
@@ -61,10 +61,34 @@ div(class="main" id="header")
     (attributes
       (attribute
         (attribute_name)
-        (attribute_value))
+        (quoted_attribute_value)
+      )
       (attribute
         (attribute_name)
-        (attribute_value))
+        (quoted_attribute_value)
+      )
+    )
+  )
+)
+
+==================
+Test Pug tag with unquoted attributes
+==================
+
+input(type=text name=username)
+----
+(source_file
+  (tag
+    (tag_name)
+    (attributes
+      (attribute
+        (attribute_name)
+        (unquoted_attribute_value)
+      )
+      (attribute
+        (attribute_name)
+        (unquoted_attribute_value)
+      )
     )
   )
 )

@@ -12,16 +12,15 @@
           "named": true
         },
         {
-          "type": "attribute_value",
+          "type": "quoted_attribute_value",
+          "named": true
+        },
+        {
+          "type": "unquoted_attribute_value",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "attribute_name",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "attributes",
@@ -33,6 +32,21 @@
       "types": [
         {
           "type": "attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "children",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "tag",
           "named": true
         }
       ]
@@ -66,6 +80,10 @@
           "named": true
         },
         {
+          "type": "children",
+          "named": true
+        },
+        {
           "type": "class_or_id",
           "named": true
         },
@@ -81,11 +99,6 @@
     }
   },
   {
-    "type": "tag_name",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "(",
     "named": false
   },
@@ -98,7 +111,7 @@
     "named": false
   },
   {
-    "type": "attribute_value",
+    "type": "attribute_name",
     "named": true
   },
   {
@@ -107,6 +120,18 @@
   },
   {
     "type": "inline_text",
+    "named": true
+  },
+  {
+    "type": "quoted_attribute_value",
+    "named": true
+  },
+  {
+    "type": "tag_name",
+    "named": true
+  },
+  {
+    "type": "unquoted_attribute_value",
     "named": true
   }
 ]

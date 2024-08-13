@@ -45,12 +45,24 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "children"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
     "tag_name": {
       "type": "PATTERN",
-      "value": "[a-zA-Z0-9_-]+"
+      "value": "\\w(?:[-\\w]*\\w)?"
     },
     "class_or_id": {
       "type": "TOKEN",
@@ -72,7 +84,7 @@
           },
           {
             "type": "PATTERN",
-            "value": "[a-zA-Z0-9_-]+"
+            "value": "[_a-zA-Z0-9-]+"
           }
         ]
       }
@@ -109,16 +121,25 @@
           "value": "="
         },
         {
-          "type": "SYMBOL",
-          "name": "attribute_value"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "quoted_attribute_value"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "unquoted_attribute_value"
+            }
+          ]
         }
       ]
     },
     "attribute_name": {
       "type": "PATTERN",
-      "value": "[a-zA-Z0-9_-]+"
+      "value": "[\\w@\\-:]+"
     },
-    "attribute_value": {
+    "quoted_attribute_value": {
       "type": "TOKEN",
       "content": {
         "type": "SEQ",
@@ -138,9 +159,41 @@
         ]
       }
     },
+    "unquoted_attribute_value": {
+      "type": "PATTERN",
+      "value": "[^)\\s]+"
+    },
     "inline_text": {
       "type": "PATTERN",
-      "value": "[^.#(]+"
+      "value": "[^(\\n][^\\n]*"
+    },
+    "children": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_indent"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "tag"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_dedent"
+          }
+        ]
+      }
     }
   },
   "extras": [
@@ -151,7 +204,20 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_newline"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_indent"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_dedent"
+    }
+  ],
   "inline": [],
   "supertypes": []
 }
