@@ -58,13 +58,13 @@ div(class="main" id="header")
 (source_file
   (tag
     (tag_name)
-    (class_or_id)
-    (class_or_id)
     (attributes
       (attribute
         (attribute_name)
-        (attribute_value)
-      )
+        (attribute_value))
+      (attribute
+        (attribute_name)
+        (attribute_value))
     )
   )
 )
