@@ -4,7 +4,16 @@ module.exports = grammar({
   externals: ($) => [$._newline, $._indent, $._dedent],
 
   rules: {
-    source_file: ($) => repeat($.tag),
+    source_file: ($) => repeat(choice($.block_expansion, $.tag)),
+
+    block_expansion: ($) =>
+      choice($.extends_statement, $.include_statement, $.block_statement),
+
+    extends_statement: ($) => seq("extends", $.identifier),
+
+    include_statement: ($) => seq("include", $.identifier),
+
+    block_statement: ($) => seq("block", $.identifier, optional($.children)),
 
     tag: ($) =>
       prec.right(
@@ -40,6 +49,8 @@ module.exports = grammar({
     _space: () => token.immediate(/ +/),
 
     inline_text: () => /[^\n]+/,
+
+    identifier: ($) => /\w+/,
 
     children: ($) =>
       prec.right(
