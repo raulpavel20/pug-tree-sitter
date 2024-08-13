@@ -19,15 +19,23 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "inline_text",
+          "named": true
+        },
         {
           "type": "tag_name",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "inline_text",
+    "named": true
   },
   {
     "type": "tag_name",

@@ -14,12 +14,28 @@
         {
           "type": "SYMBOL",
           "name": "tag_name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "inline_text"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
     "tag_name": {
       "type": "PATTERN",
       "value": "[a-zA-Z0-9_-]+"
+    },
+    "inline_text": {
+      "type": "PATTERN",
+      "value": ".+"
     }
   },
   "extras": [
