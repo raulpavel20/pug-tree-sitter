@@ -7,12 +7,14 @@ module.exports = grammar({
     source_file: ($) => repeat($.tag),
 
     tag: ($) =>
-      seq(
-        $.tag_name,
-        repeat($.class_or_id),
-        optional($.attributes),
-        optional($.inline_text),
-        optional($.children),
+      prec.right(
+        seq(
+          $.tag_name,
+          repeat($.class_or_id),
+          optional($.attributes),
+          optional($.inline_text),
+          optional(seq($._newline, $.children)),
+        ),
       ),
 
     tag_name: ($) => /\w(?:[-\w]*\w)?/,
@@ -37,6 +39,10 @@ module.exports = grammar({
     inline_text: ($) => /[^(\n][^\n]*/,
 
     children: ($) =>
-      prec.right(seq($._newline, $._indent, repeat1($.tag), $._dedent)),
+      prec.right(
+        seq($._indent, repeat1($._children_choice), optional($._dedent)),
+      ),
+
+    _children_choice: ($) => prec(1, choice($.tag, $._newline)),
   },
 });

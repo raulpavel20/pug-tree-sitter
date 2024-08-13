@@ -8,8 +8,10 @@ div
 (source_file
   (tag
     (tag_name)
-    (tag
-      (tag_name)
+    (children
+      (tag
+        (tag_name)
+      )
     )
   )
 )
@@ -27,14 +29,16 @@ div(class="container")
     (attributes
       (attribute
         (attribute_name)
-        (attribute_value))
+        (quoted_attribute_value))
     )
-    (tag
-      (tag_name)
-      (attributes
-        (attribute
-          (attribute_name)
-          (attribute_value))
+    (children
+      (tag
+        (tag_name)
+        (attributes
+          (attribute
+            (attribute_name)
+            (quoted_attribute_value))
+          )
       )
     )
   )
@@ -50,31 +54,76 @@ div
 (source_file
   (tag
     (tag_name)
-    (tag
-      (tag_name)
-      (inline_text)
+    (children
+      (tag
+        (tag_name)
+        (inline_text)
+      )
     )
   )
 )
 
 ==================
-Test Multiple Nested Tags
+Test Multiple Children
 ==================
 
 div
   p Paragraph 1
   p Paragraph 2
+  p Paragraph 3
+
 ----
 (source_file
   (tag
     (tag_name)
-    (tag
-      (tag_name)
-      (inline_text)
+    (children
+      (tag
+        (tag_name)
+        (inline_text)
+      )
+      (tag
+        (tag_name)
+        (inline_text)
+      )
+      (tag
+        (tag_name)
+        (inline_text)
+      )
     )
-    (tag
-      (tag_name)
-      (inline_text)
+  )
+)
+
+==================
+Test Multiple Deeply Nested Tags
+==================
+
+div
+  p Paragraph 1
+  div
+    p Paragraph 2
+  p Paragraph 3
+----
+(source_file
+  (tag
+    (tag_name)
+    (children
+      (tag
+        (tag_name)
+        (inline_text)
+      )
+      (tag
+        (tag_name)
+        (children
+          (tag
+            (tag_name)
+            (inline_text)
+          )
+        )
+      )
+      (tag
+        (tag_name)
+        (inline_text)
+      )
     )
   )
 )
