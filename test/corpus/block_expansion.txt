@@ -1,0 +1,73 @@
+==================
+Test Block Expansion with Extends
+==================
+
+extends layout
+----
+(source_file
+  (block_expansion
+    (extends_statement))
+)
+
+==================
+Test Block Expansion with Include
+==================
+
+include header.pug
+----
+(source_file
+  (block_expansion
+    (include_statement))
+)
+
+==================
+Test Block Expansion with Named Block
+==================
+
+block content
+----
+(source_file
+  (block_expansion
+    (block_statement
+      (block_name)))
+)
+
+==================
+Test Block Expansion with Default Content
+==================
+
+block content
+  p Default content here
+----
+(source_file
+  (block_expansion
+    (block_statement
+      (block_name)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test Block Expansion with Extends, Include, and Block
+==================
+
+extends layout
+include header.pug
+block content
+  p Default content here
+----
+(source_file
+  (block_expansion
+    (extends_statement))
+  (block_expansion
+    (include_statement))
+  (block_expansion
+    (block_statement
+      (block_name)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
