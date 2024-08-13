@@ -127,3 +127,62 @@ div
     )
   )
 )
+
+==================
+Test Complex Nested Tags with All Elements
+==================
+
+div.main#container(class="content" id="header") Welcome to Pug!
+  p.text(class="paragraph") This is a paragraph.
+  div.sub-container
+    p Another nested paragraph.
+    span.highlight(class="highlight") Highlighted text
+----
+(source_file
+  (tag
+    (tag_name)
+    (class_or_id)
+    (class_or_id)
+    (attributes
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value))
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value))
+    )
+    (inline_text)
+    (children
+      (tag
+        (tag_name)
+        (class_or_id)
+        (attributes
+          (attribute
+            (attribute_name)
+            (quoted_attribute_value))
+        )
+        (inline_text)
+      )
+      (tag
+        (tag_name)
+        (class_or_id)
+        (children
+          (tag
+            (tag_name)
+            (inline_text)
+          )
+          (tag
+            (tag_name)
+            (class_or_id)
+            (attributes
+              (attribute
+                (attribute_name)
+                (quoted_attribute_value))
+            )
+            (inline_text)
+          )
+        )
+      )
+    )
+  )
+)
