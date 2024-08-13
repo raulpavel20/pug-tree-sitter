@@ -75,8 +75,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "children"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_newline"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "children"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -278,7 +287,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "\\w+"
+      "value": "[\\w.-]+"
     },
     "children": {
       "type": "PREC_RIGHT",

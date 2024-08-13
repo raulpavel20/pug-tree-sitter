@@ -13,7 +13,8 @@ module.exports = grammar({
 
     include_statement: ($) => seq("include", $.identifier),
 
-    block_statement: ($) => seq("block", $.identifier, optional($.children)),
+    block_statement: ($) =>
+      seq("block", $.identifier, optional(seq($._newline, $.children))),
 
     tag: ($) =>
       prec.right(
@@ -50,7 +51,7 @@ module.exports = grammar({
 
     inline_text: () => /[^\n]+/,
 
-    identifier: ($) => /\w+/,
+    identifier: () => /[\w.-]+/,
 
     children: ($) =>
       prec.right(

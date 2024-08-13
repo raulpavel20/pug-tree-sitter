@@ -11,7 +11,7 @@ div
 )
 
 ==================
-Test Pug tag with inline text
+Test tag with inline text
 ==================
 
 div Hello, world!
@@ -24,7 +24,7 @@ div Hello, world!
 )
 
 ==================
-Test Pug tag with class
+Test tag with class
 ==================
 
 div.main
@@ -37,7 +37,7 @@ div.main
 )
 
 ==================
-Test Pug tag with ID
+Test tag with ID
 ==================
 
 div#container
@@ -50,7 +50,7 @@ div#container
 )
 
 ==================
-Test Pug tag with quoted attributes
+Test tag with quoted attributes
 ==================
 
 div(class="main" id="header")
@@ -72,7 +72,7 @@ div(class="main" id="header")
 )
 
 ==================
-Test Pug tag with unquoted attributes
+Test tag with unquoted attributes
 ==================
 
 input(type=text name=username)
