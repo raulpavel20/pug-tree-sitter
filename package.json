@@ -1,0 +1,25 @@
+{
+  "name": "pug-tree-sitter",
+  "version": "1.0.0",
+  "description": "Tree-sitter parser for Pug/Jade",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raulpavel20/pug-tree-sitter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raulpavel20/pug-tree-sitter/issues"
+  },
+  "homepage": "https://github.com/raulpavel20/pug-tree-sitter#readme",
+  "dependencies": {
+    "nan": "^2.20.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.22.6"
+  }
+}
