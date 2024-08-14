@@ -3,6 +3,7 @@
 This repository contains a [tree-sitter](https://tree-sitter.github.io/tree-sitter/)-based parser for the Pug templating language. My goal is to develop a fully-featured Pug parser for any tools requiring syntax awareness.
 
 ## Current Feature Set
+***This is a work in progress project. Bugs are expected.***
  - **Basic Pug Tags**: Support for standard HTML-like tags (e.g., div, p).
  - **Classes and IDs**: Parsing of classes and IDs directly on tags (e.g., div.main#container).
  - **Attributes**: Handling of both quoted and unquoted attribute values.
@@ -11,10 +12,11 @@ This repository contains a [tree-sitter](https://tree-sitter.github.io/tree-sitt
  - **Nested Tags**: Correctly handles nested tag structures.
  - **Block Expansion**: Support for extends, include, and block statements.
  - **Conditionals**: Support for *if*, *else if*, and *else* statements.
-
-## In Progress
  - **Loops**: Support for *for* and *while* loops.
  - **Mixins**: Adding support for defining and using mixins
+
+## In Progress
+ - Syntax highlighting using [tree-sitter-highlight](https://github.com/tree-sitter/tree-sitter/tree/master/highlight)
 
 ## Installation
 
