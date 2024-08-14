@@ -1,0 +1,164 @@
+==================
+Test Simple Each Loop
+==================
+
+each item in items
+  li= item
+----
+(source_file
+  (loop
+    (each_statement
+      (loop_variable)
+      (loop_source)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test Each Loop with Attributes
+==================
+
+each item, i in items
+  li.item(data-index=i) #{item}
+----
+(source_file
+  (loop
+    (each_statement
+      (loop_variable)
+      (loop_index)
+      (loop_source)
+      (children
+        (tag
+          (tag_name)
+          (class_or_id)
+          (attributes
+            (attribute
+              (attribute_name)
+              (unquoted_attribute_value)))
+          (inline_text)))))
+)
+
+==================
+Test Each Loop with Nested Tags
+==================
+
+each user in users
+  div.user
+    h2= user.name
+    p= user.email
+----
+(source_file
+  (loop
+    (each_statement
+      (loop_variable)
+      (loop_source)
+      (children
+        (tag
+          (tag_name)
+          (class_or_id)
+          (children
+            (tag
+              (tag_name)
+              (inline_text))
+            (tag
+              (tag_name)
+              (inline_text)))))))
+)
+
+==================
+Test Each Loop with Conditionals
+==================
+
+each user in users
+  if user.isAdmin
+    div.admin Welcome, Admin #{user.name}
+  else
+    div.user Welcome, #{user.name}
+----
+(source_file
+  (loop
+    (each_statement
+      (loop_variable)
+      (loop_source)
+      (children
+        (conditional
+          (if_statement
+            (condition)
+            (children
+              (tag
+                (tag_name)
+                (class_or_id)
+                (inline_text))))
+          (else_statement
+            (children
+              (tag
+                (tag_name)
+                (class_or_id)
+                (inline_text)))))))))
+)
+
+==================
+Test Complex Loop with All Features
+==================
+
+each user, i in users
+  if user.isActive
+    div.user(data-index=i)
+      h3 #{user.name} (#{user.role})
+      p.email= user.email
+      if user.isAdmin
+        span.admin Admin
+  else
+    div.inactive-user(data-index=i)
+      h3 #{user.name} (Inactive)
+----
+(source_file
+  (loop
+    (each_statement
+      (loop_variable)
+      (loop_index)
+      (loop_source)
+      (children
+        (conditional
+          (if_statement
+            (condition)
+            (children
+              (tag
+                (tag_name)
+                (class_or_id)
+                (attributes
+                  (attribute
+                    (attribute_name)
+                    (unquoted_attribute_value)))
+                (children
+                  (tag
+                    (tag_name)
+                    (inline_text))
+                  (tag
+                    (tag_name)
+                    (class_or_id)
+                    (inline_text))
+                  (conditional
+                    (if_statement
+                      (condition)
+                      (children
+                        (tag
+                          (tag_name)
+                          (class_or_id)
+                          (inline_text)))))))))
+          (else_statement
+            (children
+              (tag
+                (tag_name)
+                (class_or_id)
+                (attributes
+                  (attribute
+                    (attribute_name)
+                    (unquoted_attribute_value)))
+                (children
+                  (tag
+                    (tag_name)
+                    (inline_text))))))))))
+)
