@@ -9,12 +9,12 @@ module.exports = grammar({
     block_expansion: ($) =>
       choice($.extends_statement, $.include_statement, $.block_statement),
 
-    extends_statement: ($) => seq("extends", $.identifier),
+    extends_statement: ($) => seq("extends", $.reference),
 
-    include_statement: ($) => seq("include", $.identifier),
+    include_statement: ($) => seq("include", $.reference, optional($._newline)),
 
     block_statement: ($) =>
-      seq("block", $.identifier, optional(seq($._newline, $.children))),
+      seq("block", $.reference, optional(seq($._newline, $.children))),
 
     tag: ($) =>
       prec.right(
@@ -49,6 +49,14 @@ module.exports = grammar({
 
     condition: ($) => /[^\n]+/,
 
+    interpolation: ($) => seq("#{", $.expression, "}"),
+
+    expression: ($) => /[^\n}]+/,
+
+    inline_text: ($) => repeat1(choice($.interpolation, /[^#\n]+/)),
+
+    reference: () => /[\w.-]+/,
+
     tag_name: () => /\w(?:[-\w]*\w)?/,
 
     class_or_id: () => token(seq(choice(".", "#"), /[_a-zA-Z0-9-]+/)),
@@ -64,15 +72,12 @@ module.exports = grammar({
 
     attribute_name: () => /[\w@\-:]+/,
 
-    quoted_attribute_value: () => token(seq('"', /[^"]*/, '"')),
+    quoted_attribute_value: ($) =>
+      seq('"', repeat(choice($.interpolation, /[^"#]+/)), '"'),
 
-    unquoted_attribute_value: () => /[^)\s]+/,
+    unquoted_attribute_value: () => /[^)\s#"]+/,
 
     _space: () => token.immediate(/ +/),
-
-    inline_text: () => /[^\n]+/,
-
-    identifier: () => /[\w.-]+/,
 
     children: ($) =>
       prec.right(

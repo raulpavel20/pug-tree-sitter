@@ -1,0 +1,97 @@
+==================
+Test Simple Inline Text Interpolation
+==================
+
+p Hello, #{user.name}!
+----
+(source_file
+  (tag
+    (tag_name)
+    (inline_text
+      (interpolation
+        (expression)
+      )
+    )
+  )
+)
+
+==================
+Test Interpolation in Quoted Attribute Values
+==================
+
+div(class="user-#{user.id}")
+----
+(source_file
+  (tag
+    (tag_name)
+    (attributes
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (interpolation
+            (expression))))))
+)
+
+==================
+Test Interpolation in Unquoted Attribute Values
+==================
+
+img(src="#{image.url}")
+----
+(source_file
+  (tag
+    (tag_name)
+    (attributes
+      (attribute
+        (attribute_name)
+        (quoted_attribute_value
+          (interpolation
+            (expression))))))
+)
+
+==================
+Test Interpolation with Multiple Parts
+==================
+
+p Hello, #{user.firstName} #{user.lastName}!
+----
+(source_file
+  (tag
+    (tag_name)
+    (inline_text
+      (interpolation
+        (expression))
+      (interpolation
+        (expression)))))
+
+==================
+Test Complex Interpolation in Nested Tags
+==================
+
+div
+  p Hello, #{user.firstName} #{user.lastName}!
+  span(class="user-role") #{user.role}
+----
+(source_file
+  (tag
+    (tag_name)
+    (children
+      (tag
+        (tag_name)
+        (inline_text
+          (interpolation
+            (expression))
+          (interpolation
+            (expression))))
+      (tag
+        (tag_name)
+        (attributes
+          (attribute
+            (attribute_name)
+            (quoted_attribute_value)))
+        (inline_text
+          (interpolation
+            (expression))))
+    )
+  )
+)

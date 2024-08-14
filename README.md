@@ -7,13 +7,13 @@ This repository contains a [tree-sitter](https://tree-sitter.github.io/tree-sitt
  - **Classes and IDs**: Parsing of classes and IDs directly on tags (e.g., div.main#container).
  - **Attributes**: Handling of both quoted and unquoted attribute values.
  - **Inline Text**: Recognition of inline text following tags.
+ - **Interpolation**: Handling of variable and code interpolation within text and attributes.
  - **Nested Tags**: Correctly handles nested tag structures.
  - **Block Expansion**: Support for extends, include, and block statements.
  - **Conditionals**: Support for *if*, *else if*, and *else* statements.
 
 ## In Progress
  - **Loops**: Support for *for* and *while* loops.
- - **Interpolation**: Handling of variable and code interpolation within text and attributes.
  - **Mixins**: Adding support for defining and using mixins
 
 ## Installation

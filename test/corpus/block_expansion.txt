@@ -7,7 +7,7 @@ extends layout
 (source_file
   (block_expansion
     (extends_statement
-      (identifier)
+      (reference)
     )
   )
 )
@@ -21,7 +21,7 @@ include header.pug
 (source_file
   (block_expansion
     (include_statement
-      (identifier)
+      (reference)
     )
   )
 )
@@ -35,7 +35,7 @@ block content
 (source_file
   (block_expansion
     (block_statement
-      (identifier)
+      (reference)
     )
   )
 )
@@ -50,7 +50,7 @@ block content
 (source_file
   (block_expansion
     (block_statement
-      (identifier)
+      (reference)
       (children
         (tag
           (tag_name)
@@ -73,13 +73,13 @@ block content
 (source_file
   (block_expansion
     (extends_statement
-      (identifier)))
+      (reference)))
   (block_expansion
     (include_statement
-      (identifier)))
+      (reference)))
   (block_expansion
     (block_statement
-      (identifier)
+      (reference)
       (children
         (tag
           (tag_name)

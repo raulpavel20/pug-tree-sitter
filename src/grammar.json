@@ -47,7 +47,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "reference"
         }
       ]
     },
@@ -60,7 +60,19 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "reference"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_newline"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -73,7 +85,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "identifier"
+          "name": "reference"
         },
         {
           "type": "CHOICE",
@@ -318,6 +330,47 @@
       "type": "PATTERN",
       "value": "[^\\n]+"
     },
+    "interpolation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "#{"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "expression": {
+      "type": "PATTERN",
+      "value": "[^\\n}]+"
+    },
+    "inline_text": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "interpolation"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^#\\n]+"
+          }
+        ]
+      }
+    },
+    "reference": {
+      "type": "PATTERN",
+      "value": "[\\w.-]+"
+    },
     "tag_name": {
       "type": "PATTERN",
       "value": "\\w(?:[-\\w]*\\w)?"
@@ -398,28 +451,37 @@
       "value": "[\\w@\\-:]+"
     },
     "quoted_attribute_value": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "\""
-          },
-          {
-            "type": "PATTERN",
-            "value": "[^\"]*"
-          },
-          {
-            "type": "STRING",
-            "value": "\""
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "interpolation"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^\"#]+"
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
     },
     "unquoted_attribute_value": {
       "type": "PATTERN",
-      "value": "[^)\\s]+"
+      "value": "[^)\\s#\"]+"
     },
     "_space": {
       "type": "IMMEDIATE_TOKEN",
@@ -427,14 +489,6 @@
         "type": "PATTERN",
         "value": " +"
       }
-    },
-    "inline_text": {
-      "type": "PATTERN",
-      "value": "[^\\n]+"
-    },
-    "identifier": {
-      "type": "PATTERN",
-      "value": "[\\w.-]+"
     },
     "children": {
       "type": "PREC_RIGHT",

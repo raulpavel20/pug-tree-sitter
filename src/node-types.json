@@ -73,7 +73,7 @@
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "reference",
           "named": true
         }
       ]
@@ -97,11 +97,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "condition",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "conditional",
@@ -169,7 +164,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "reference",
           "named": true
         }
       ]
@@ -203,7 +198,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "reference",
           "named": true
         }
       ]
@@ -212,7 +207,47 @@
   {
     "type": "inline_text",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "interpolation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interpolation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quoted_attribute_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "interpolation",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "source_file",
@@ -269,6 +304,14 @@
     }
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "#{",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -293,6 +336,10 @@
     "named": true
   },
   {
+    "type": "condition",
+    "named": true
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -301,12 +348,12 @@
     "named": false
   },
   {
-    "type": "extends",
-    "named": false
+    "type": "expression",
+    "named": true
   },
   {
-    "type": "identifier",
-    "named": true
+    "type": "extends",
+    "named": false
   },
   {
     "type": "if",
@@ -317,7 +364,7 @@
     "named": false
   },
   {
-    "type": "quoted_attribute_value",
+    "type": "reference",
     "named": true
   },
   {
@@ -327,5 +374,9 @@
   {
     "type": "unquoted_attribute_value",
     "named": true
+  },
+  {
+    "type": "}",
+    "named": false
   }
 ]
