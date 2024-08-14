@@ -1,0 +1,152 @@
+==================
+Test Basic Mixin Definition and Usage
+==================
+mixin hello
+  p Hello, world!
+
++hello
+----
+(source_file
+  (mixin_definition
+    (mixin_name)
+    (children
+      (tag
+        (tag_name)
+        (inline_text))))
+  (mixin_call
+    (mixin_name)))
+)
+
+==================
+Test Mixin with Parameters
+==================
+mixin greet(name)
+  p Hello, #{name}!
+
++greet('Alice')
+----
+(source_file
+  (mixin_definition
+    (mixin_name)
+    (mixin_parameters
+      (parameter))
+    (children
+      (tag
+        (tag_name)
+        (inline_text
+          (interpolation
+            (expression))))))
+  (mixin_call
+    (mixin_name)
+    (arguments
+      (argument))))
+)
+
+==================
+Test Mixin with Conditional Logic
+==================
+mixin greet(name)
+  if name
+    p Hello, #{name}!
+  else
+    p Hello, stranger!
+
++greet('Alice')
++greet()
+----
+(source_file
+  (mixin_definition
+    (mixin_name)
+    (mixin_parameters
+      (parameter))
+    (children
+      (conditional
+        (if_statement
+          (condition)
+          (children
+            (tag
+              (tag_name)
+              (inline_text
+                (interpolation
+                  (expression))))))
+        (else_statement
+          (children
+            (tag
+              (tag_name)
+              (inline_text)))))))
+  (mixin_call
+    (mixin_name)
+    (arguments
+      (argument)))
+  (mixin_call
+    (mixin_name)))
+)
+
+==================
+Test Mixin with Loops
+==================
+mixin userList(users)
+  ul
+    each user in users
+      li= user
+
++userList(['Alice', 'Bob'])
+----
+(source_file
+  (mixin_definition
+    (mixin_name)
+    (mixin_parameters
+      (parameter))
+    (children
+      (tag
+        (tag_name)
+        (children
+          (loop
+            (each_statement
+              (loop_variable)
+              (loop_source))
+            (children
+              (tag
+                (tag_name)
+                (expression))))))))
+  (mixin_call
+    (mixin_name)
+    (arguments
+      (argument))))
+)
+
+==================
+Test Mixin with Block Content
+==================
+mixin card(title)
+  .card
+    .card-title #{title}
+    block
+
++card('My Title')
+  p This is some content inside the card.
+----
+(source_file
+  (mixin_definition
+    (mixin_name)
+    (mixin_parameters
+      (parameter))
+    (children
+      (tag
+        (class_or_id)
+        (children
+          (tag
+            (class_or_id)
+            (inline_text
+              (interpolation
+                (expression))))
+          (block)))))
+  (mixin_call
+    (mixin_name)
+    (arguments
+      (argument))
+    (children
+      (tag
+        (tag_name)
+        (inline_text)))))
+)
