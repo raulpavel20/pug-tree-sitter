@@ -29,7 +29,12 @@ module.exports = grammar({
       ),
 
     conditional: ($) =>
-      choice($.if_statement, $.else_if_statement, $.else_statement),
+      prec.right(
+        seq(
+          $.if_statement,
+          repeat(choice($.else_if_statement, $.else_statement)),
+        ),
+      ),
 
     if_statement: ($) =>
       prec.right(seq("if", $.condition, optional(seq($._newline, $.children)))),

@@ -176,21 +176,33 @@
       }
     },
     "conditional": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "if_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "else_if_statement"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "else_statement"
-        }
-      ]
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "if_statement"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "else_if_statement"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "else_statement"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "if_statement": {
       "type": "PREC_RIGHT",
