@@ -60,9 +60,14 @@ p Hello, #{user.firstName} #{user.lastName}!
     (tag_name)
     (inline_text
       (interpolation
-        (expression))
+        (expression)
+      )
       (interpolation
-        (expression)))))
+        (expression)
+      )
+    )
+  )
+)
 
 ==================
 Test Complex Interpolation in Nested Tags

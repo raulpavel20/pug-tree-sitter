@@ -9,12 +9,11 @@ each item in items
   (loop
     (each_statement
       (loop_variable)
-      (loop_source)
-      (children
-        (tag
-          (tag_name)
-          (inline_text)))))
-)
+      (loop_source))
+    (children
+      (tag
+        (tag_name)
+        (expression)))))
 
 ==================
 Test Each Loop with Attributes
@@ -28,19 +27,18 @@ each item, i in items
     (each_statement
       (loop_variable)
       (loop_index)
-      (loop_source)
-      (children
-        (tag
-          (tag_name)
-          (class_or_id)
-          (attributes
-            (attribute
-              (attribute_name)
-              (unquoted_attribute_value)))
-          (inline_text
-            (interpolation
-              (expression)))))))
-)
+      (loop_source))
+    (children
+      (tag
+        (tag_name)
+        (class_or_id)
+        (attributes
+          (attribute
+            (attribute_name)
+            (unquoted_attribute_value)))
+        (inline_text
+          (interpolation
+            (expression)))))))
 
 ==================
 Test Each Loop with Nested Tags
@@ -55,19 +53,18 @@ each user in users
   (loop
     (each_statement
       (loop_variable)
-      (loop_source)
-      (children
-        (tag
-          (tag_name)
-          (class_or_id)
-          (children
-            (tag
-              (tag_name)
-              (inline_text))
-            (tag
-              (tag_name)
-              (inline_text)))))))
-)
+      (loop_source))
+    (children
+      (tag
+        (tag_name)
+        (class_or_id)
+        (children
+          (tag
+            (tag_name)
+            (expression))
+          (tag
+            (tag_name)
+            (expression)))))))
 
 ==================
 Test Each Loop with Conditionals
@@ -83,26 +80,34 @@ each user in users
   (loop
     (each_statement
       (loop_variable)
-      (loop_source)
-      (children
-        (conditional
-          (if_statement
-            (condition)
-            (children
-              (tag
-                (tag_name)
-                (class_or_id)
-                (inline_text
-                  (interpolation
-                    (expression)))))
-          (else_statement
-            (children
-              (tag
-                (tag_name)
-                (class_or_id)
-                (inline_text
-                  (interpolation
-                    (expression))))))))))
+      (loop_source))
+    (children
+      (conditional
+        (if_statement
+          (condition)
+          (children
+            (tag
+              (tag_name)
+              (class_or_id)
+              (inline_text
+                (interpolation
+                  (expression))))))
+        (else_statement
+          (children
+            (tag
+              (tag_name)
+              (class_or_id)
+              (inline_text
+                (interpolation
+                  (expression)
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
 )
 
 ==================
@@ -125,50 +130,79 @@ each user, i in users
     (each_statement
       (loop_variable)
       (loop_index)
-      (loop_source)
-      (children
-        (conditional
-          (if_statement
-            (condition)
-            (children
-              (tag
-                (tag_name)
-                (class_or_id)
-                (attributes
-                  (attribute
-                    (attribute_name)
-                    (unquoted_attribute_value)))
-                (children
-                  (tag
-                    (tag_name)
-                    (inline_text
-                      (interpolation
-                        (expression))
-                      (interpolation
-                        (expression))))
-                  (tag
-                    (tag_name)
-                    (class_or_id)
-                    (inline_text))
-                  (conditional
-                    (if_statement
-                      (condition)
-                      (children
-                        (tag
-                          (tag_name)
-                          (class_or_id)
-                          (inline_text))))))))
-          (else_statement
-            (children
-              (tag
-                (tag_name)
-                (class_or_id)
-                (attributes
-                  (attribute
-                    (attribute_name)
-                    (unquoted_attribute_value)))
-                (children
-                  (tag
-                    (tag_name)
-                    (inline_text))))))))))
+      (loop_source))
+    (children
+      (conditional
+        (if_statement
+          (condition)
+          (children
+            (tag
+              (tag_name)
+              (class_or_id)
+              (attributes
+                (attribute
+                  (attribute_name)
+                  (unquoted_attribute_value)
+                )
+              )
+              (children
+                (tag
+                  (tag_name)
+                  (inline_text
+                    (interpolation
+                      (expression)
+                    )
+                    (interpolation
+                      (expression)
+                    )
+                  )
+                )
+                (tag
+                  (tag_name)
+                  (class_or_id)
+                  (expression)
+                )
+                (conditional
+                  (if_statement
+                    (condition)
+                    (children
+                      (tag
+                        (tag_name)
+                        (class_or_id)
+                        (inline_text)
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+        (else_statement
+          (children
+            (tag
+              (tag_name)
+              (class_or_id)
+              (attributes
+                (attribute
+                  (attribute_name)
+                  (unquoted_attribute_value)
+                )
+              )
+              (children
+                (tag
+                  (tag_name)
+                  (inline_text
+                    (interpolation
+                      (expression)
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+  )
 )

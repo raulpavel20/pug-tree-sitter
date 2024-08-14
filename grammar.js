@@ -4,7 +4,8 @@ module.exports = grammar({
   externals: ($) => [$._newline, $._indent, $._dedent],
 
   rules: {
-    source_file: ($) => repeat(choice($.block_expansion, $.tag, $.conditional)),
+    source_file: ($) =>
+      repeat(choice($.block_expansion, $.tag, $.conditional, $.loop)),
 
     block_expansion: ($) =>
       choice($.extends_statement, $.include_statement, $.block_statement),
@@ -23,6 +24,7 @@ module.exports = grammar({
           repeat($.class_or_id),
           optional($.attributes),
           optional(seq($._space, $.inline_text)),
+          optional(seq("=", $.expression)),
           optional($._newline),
           optional($.children),
         ),
@@ -46,6 +48,23 @@ module.exports = grammar({
 
     else_statement: ($) =>
       prec.right(seq("else", optional(seq($._newline, $.children)))),
+
+    loop: ($) => prec.right(seq($.each_statement, $._newline, $.children)),
+
+    each_statement: ($) =>
+      seq(
+        "each",
+        $.loop_variable,
+        optional(seq(",", $.loop_index)),
+        "in",
+        $.loop_source,
+      ),
+
+    loop_variable: () => /[\w-]+/,
+
+    loop_index: () => /[\w-]+/,
+
+    loop_source: () => /[\w-]+/,
 
     condition: ($) => /[^\n]+/,
 
@@ -84,6 +103,7 @@ module.exports = grammar({
         seq($._indent, repeat1($._children_choice), optional($._dedent)),
       ),
 
-    _children_choice: ($) => prec(1, choice($.tag, $.conditional, $._newline)),
+    _children_choice: ($) =>
+      prec(1, choice($.tag, $.conditional, $.loop, $._newline)),
   },
 });

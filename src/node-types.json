@@ -92,6 +92,10 @@
           "named": true
         },
         {
+          "type": "loop",
+          "named": true
+        },
+        {
           "type": "tag",
           "named": true
         }
@@ -116,6 +120,29 @@
         },
         {
           "type": "if_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "each_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "loop_index",
+          "named": true
+        },
+        {
+          "type": "loop_source",
+          "named": true
+        },
+        {
+          "type": "loop_variable",
           "named": true
         }
       ]
@@ -235,6 +262,40 @@
     }
   },
   {
+    "type": "loop",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "children",
+          "named": true
+        },
+        {
+          "type": "each_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "loop_index",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "loop_source",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "loop_variable",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "quoted_attribute_value",
     "named": true,
     "fields": {},
@@ -266,6 +327,10 @@
           "named": true
         },
         {
+          "type": "loop",
+          "named": true
+        },
+        {
           "type": "tag",
           "named": true
         }
@@ -290,6 +355,10 @@
         },
         {
           "type": "class_or_id",
+          "named": true
+        },
+        {
+          "type": "expression",
           "named": true
         },
         {
@@ -320,6 +389,10 @@
     "named": false
   },
   {
+    "type": ",",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
@@ -340,6 +413,10 @@
     "named": true
   },
   {
+    "type": "each",
+    "named": false
+  },
+  {
     "type": "else",
     "named": false
   },
@@ -357,6 +434,10 @@
   },
   {
     "type": "if",
+    "named": false
+  },
+  {
+    "type": "in",
     "named": false
   },
   {

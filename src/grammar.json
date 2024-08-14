@@ -17,6 +17,10 @@
           {
             "type": "SYMBOL",
             "name": "conditional"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "loop"
           }
         ]
       }
@@ -152,6 +156,27 @@
                   {
                     "type": "SYMBOL",
                     "name": "inline_text"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "="
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "expression"
                   }
                 ]
               },
@@ -325,6 +350,81 @@
           }
         ]
       }
+    },
+    "loop": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "each_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_newline"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "children"
+          }
+        ]
+      }
+    },
+    "each_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "each"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loop_variable"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "loop_index"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "in"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "loop_source"
+        }
+      ]
+    },
+    "loop_variable": {
+      "type": "PATTERN",
+      "value": "[\\w-]+"
+    },
+    "loop_index": {
+      "type": "PATTERN",
+      "value": "[\\w-]+"
+    },
+    "loop_source": {
+      "type": "PATTERN",
+      "value": "[\\w-]+"
     },
     "condition": {
       "type": "PATTERN",
@@ -535,6 +635,10 @@
           {
             "type": "SYMBOL",
             "name": "conditional"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "loop"
           },
           {
             "type": "SYMBOL",
