@@ -9,9 +9,9 @@ This repository contains a [tree-sitter](https://tree-sitter.github.io/tree-sitt
  - **Inline Text**: Recognition of inline text following tags.
  - **Nested Tags**: Correctly handles nested tag structures.
  - **Block Expansion**: Support for extends, include, and block statements.
+ - **Conditionals**: Support for *if*, *else if*, and *else* statements.
 
 ## In Progress
- - **Conditionals**: Support for *if*, *else if*, and *else* statements.
  - **Loops**: Support for *for* and *while* loops.
  - **Interpolation**: Handling of variable and code interpolation within text and attributes.
  - **Mixins**: Adding support for defining and using mixins
