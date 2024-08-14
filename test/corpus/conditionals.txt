@@ -1,0 +1,159 @@
+==================
+Test If Statement
+==================
+
+if user.isAdmin
+  p Welcome, Admin!
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test If-Else Statement
+==================
+
+if user.isAdmin
+  p Welcome, Admin!
+else
+  p Welcome, Guest!
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text))))
+    (else_statement
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test If-Else If-Else Statement
+==================
+
+if user.isAdmin
+  p Welcome, Admin!
+else if user.isGuest
+  p Welcome, Guest!
+else
+  p Please log in.
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text))))
+    (else_if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text))))
+    (else_statement
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test If Statement with AND Condition
+==================
+
+if user.isAdmin && user.isLoggedIn
+  p Welcome, Admin!
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test If Statement with OR Condition
+==================
+
+if user.isAdmin || user.isGuest
+  p Welcome, Admin or Guest!
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test If Statement with Parentheses
+==================
+
+if (user.isAdmin || user.isGuest) && user.isLoggedIn
+  p Welcome, logged-in user!
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
+
+==================
+Test Nested If Statements
+==================
+
+if user.isAdmin
+  if user.isSuperAdmin
+    p Welcome, Super Admin!
+  else
+    p Welcome, Admin!
+else
+  p Welcome, Guest!
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (conditional
+          (if_statement
+            (condition)
+            (children
+              (tag
+                (tag_name)
+                (inline_text))))
+          (else_statement
+            (children
+              (tag
+                (tag_name)
+                (inline_text))))))
+    (else_statement
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+)
