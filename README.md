@@ -4,7 +4,7 @@ This repository contains a [tree-sitter](https://tree-sitter.github.io/tree-sitt
 
 ## Current Feature Set ✅
 
-***This is a work in progress project. Bugs are expected. 🐞***
+***This is a work in progress project. Bugs are expected.*** 🐞
  - **Basic Pug Tags**: Support for standard HTML-like tags (e.g., div, p).
  - **Classes and IDs**: Parsing of classes and IDs directly on tags (e.g., div.main#container).
  - **Attributes**: Handling of both quoted and unquoted attribute values.
