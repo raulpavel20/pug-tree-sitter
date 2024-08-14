@@ -174,10 +174,78 @@ else
             (children
               (tag
                 (tag_name)
-                (inline_text))))))
+                (inline_text)))))))
     (else_statement
       (children
         (tag
           (tag_name)
           (inline_text)))))
+)
+
+==================
+Test Complex Nested If Statements with Tags
+==================
+
+if user.isLoggedIn
+  if user.isAdmin
+    div.admin-container#main(data-role="admin")
+      p Welcome, Admin!
+  else if user.isGuest
+    div.guest-container(data-role="guest")
+      p Welcome, Guest!
+  else
+    p Welcome, User!
+else
+  div.login-prompt
+    p Please log in.
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (conditional
+          (if_statement
+            (condition)
+            (children
+              (tag
+                (tag_name)
+                (class_or_id)
+                (class_or_id)
+                (attributes
+                  (attribute
+                    (attribute_name)
+                    (quoted_attribute_value)))
+                (children
+                  (tag
+                    (tag_name)
+                    (inline_text))))))
+          (else_if_statement
+            (condition)
+            (children
+              (tag
+                (tag_name)
+                (class_or_id)
+                (attributes
+                  (attribute
+                    (attribute_name)
+                    (quoted_attribute_value)))
+                (children
+                  (tag
+                    (tag_name)
+                    (inline_text))))))
+          (else_statement
+            (children
+              (tag
+                (tag_name)
+                (inline_text)))))))
+    (else_statement
+      (children
+        (tag
+          (tag_name)
+          (class_or_id)
+          (children
+            (tag
+              (tag_name)
+              (inline_text)))))))
 )
