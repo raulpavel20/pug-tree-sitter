@@ -1,5 +1,83 @@
 [
   {
+    "type": "arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "null",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "undefined",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "array",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "null",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "object",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "undefined",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute",
     "named": true,
     "fields": {},
@@ -42,34 +120,23 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "block_statement",
-          "named": true
-        },
-        {
-          "type": "extends_statement",
-          "named": true
-        },
-        {
-          "type": "include_statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "block_statement",
-    "named": true,
-    "fields": {},
-    "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
+          "type": "block",
+          "named": true
+        },
+        {
           "type": "children",
+          "named": true
+        },
+        {
+          "type": "extends",
+          "named": true
+        },
+        {
+          "type": "include",
           "named": true
         },
         {
@@ -80,6 +147,11 @@
     }
   },
   {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "children",
     "named": true,
     "fields": {},
@@ -87,6 +159,14 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
         {
           "type": "conditional",
           "named": true
@@ -96,7 +176,26 @@
           "named": true
         },
         {
+          "type": "mixin_call",
+          "named": true
+        },
+        {
           "type": "tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "comment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "inline_text",
           "named": true
         }
       ]
@@ -120,6 +219,21 @@
         },
         {
           "type": "if_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "doctype",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "reference",
           "named": true
         }
       ]
@@ -183,21 +297,6 @@
     }
   },
   {
-    "type": "extends_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "reference",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "if_statement",
     "named": true,
     "fields": {},
@@ -211,21 +310,6 @@
         },
         {
           "type": "condition",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "include_statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "reference",
           "named": true
         }
       ]
@@ -296,6 +380,127 @@
     "fields": {}
   },
   {
+    "type": "mixin_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "children",
+          "named": true
+        },
+        {
+          "type": "mixin_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mixin_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "children",
+          "named": true
+        },
+        {
+          "type": "mixin_name",
+          "named": true
+        },
+        {
+          "type": "mixin_parameters",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mixin_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "mixin_parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "object",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "pair",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "key",
+          "named": true
+        },
+        {
+          "type": "null",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "undefined",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "quoted_attribute_value",
     "named": true,
     "fields": {},
@@ -323,11 +528,27 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "conditional",
           "named": true
         },
         {
+          "type": "doctype",
+          "named": true
+        },
+        {
           "type": "loop",
+          "named": true
+        },
+        {
+          "type": "mixin_call",
+          "named": true
+        },
+        {
+          "type": "mixin_definition",
           "named": true
         },
         {
@@ -336,6 +557,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "tag",
@@ -381,6 +607,10 @@
     "named": false
   },
   {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -389,11 +619,35 @@
     "named": false
   },
   {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
   {
+    "type": "//",
+    "named": false
+  },
+  {
+    "type": "//-",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {
@@ -402,7 +656,7 @@
   },
   {
     "type": "block",
-    "named": false
+    "named": true
   },
   {
     "type": "class_or_id",
@@ -411,6 +665,10 @@
   {
     "type": "condition",
     "named": true
+  },
+  {
+    "type": "doctype",
+    "named": false
   },
   {
     "type": "each",
@@ -430,6 +688,10 @@
   },
   {
     "type": "extends",
+    "named": true
+  },
+  {
+    "type": "false",
     "named": false
   },
   {
@@ -442,7 +704,23 @@
   },
   {
     "type": "include",
+    "named": true
+  },
+  {
+    "type": "key",
+    "named": true
+  },
+  {
+    "type": "mixin",
     "named": false
+  },
+  {
+    "type": "null",
+    "named": true
+  },
+  {
+    "type": "number",
+    "named": true
   },
   {
     "type": "reference",
@@ -453,8 +731,20 @@
     "named": true
   },
   {
+    "type": "true",
+    "named": false
+  },
+  {
+    "type": "undefined",
+    "named": true
+  },
+  {
     "type": "unquoted_attribute_value",
     "named": true
+  },
+  {
+    "type": "{",
+    "named": false
   },
   {
     "type": "}",

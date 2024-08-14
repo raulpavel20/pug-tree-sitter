@@ -12,9 +12,13 @@ mixin hello
     (children
       (tag
         (tag_name)
-        (inline_text))))
+        (inline_text)
+      )
+    )
+  )
   (mixin_call
-    (mixin_name)))
+    (mixin_name)
+  )
 )
 
 ==================
@@ -35,11 +39,18 @@ mixin greet(name)
         (tag_name)
         (inline_text
           (interpolation
-            (expression))))))
+            (expression)
+          )
+        )
+      )
+    )
+  )
   (mixin_call
     (mixin_name)
     (arguments
-      (argument))))
+      (string)
+    )
+  )
 )
 
 ==================
@@ -77,9 +88,12 @@ mixin greet(name)
   (mixin_call
     (mixin_name)
     (arguments
-      (argument)))
+      (string)
+    )
+  )
   (mixin_call
-    (mixin_name)))
+    (mixin_name)
+  )
 )
 
 ==================
@@ -112,15 +126,20 @@ mixin userList(users)
   (mixin_call
     (mixin_name)
     (arguments
-      (argument))))
+      (array
+        (string)
+        (string)
+      )
+    )
+  )
 )
 
 ==================
 Test Mixin with Block Content
 ==================
 mixin card(title)
-  .card
-    .card-title #{title}
+  div.card
+    h3.card-title #{title}
     block
 
 +card('My Title')
@@ -130,23 +149,37 @@ mixin card(title)
   (mixin_definition
     (mixin_name)
     (mixin_parameters
-      (parameter))
-    (children
-      (tag
-        (class_or_id)
-        (children
-          (tag
-            (class_or_id)
-            (inline_text
-              (interpolation
-                (expression))))
-          (block)))))
-  (mixin_call
-    (mixin_name)
-    (arguments
-      (argument))
+      (parameter)
+    )
     (children
       (tag
         (tag_name)
-        (inline_text)))))
+        (class_or_id)
+        (children
+          (tag
+            (tag_name)
+            (class_or_id)
+            (inline_text
+              (interpolation
+                (expression)
+              )
+            )
+          )
+          (block)
+        )
+      )
+    )
+  )
+  (mixin_call
+    (mixin_name)
+    (arguments
+      (string)
+    )
+    (children
+      (tag
+        (tag_name)
+        (inline_text)
+      )
+    )
+  )
 )

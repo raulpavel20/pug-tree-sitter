@@ -5,17 +5,110 @@ module.exports = grammar({
 
   rules: {
     source_file: ($) =>
-      repeat(choice($.block_expansion, $.tag, $.conditional, $.loop)),
+      repeat(
+        choice(
+          $.doctype,
+          $.block_expansion,
+          $.tag,
+          $.conditional,
+          $.loop,
+          $.mixin_definition,
+          $.mixin_call,
+          $.comment,
+        ),
+      ),
+
+    //keywords
+    extends: () => "extends",
+    include: () => "include",
+    block: () => "block",
+    doctype: ($) => seq("doctype", optional($.reference)),
+
+    // JS primitives
+    string: () =>
+      choice(
+        seq('"', repeat(choice(/[^"\\\n]/, /\\./)), '"'),
+        seq("'", repeat(choice(/[^'\\\n]/, /\\./)), "'"),
+      ),
+    number: () =>
+      token(
+        seq(
+          optional(choice("-", "+")),
+          choice(seq(/\d+/, optional(seq(".", /\d+/))), seq(".", /\d+/)),
+          optional(seq(/[eE]/, optional(choice("-", "+")), /\d+/)),
+        ),
+      ),
+    boolean: () => choice("true", "false"),
+    null: () => "null",
+    undefined: () => "undefined",
+    _js_primitive: ($) =>
+      choice($.string, $.number, $.boolean, $.null, $.undefined),
+
+    comment: ($) =>
+      choice(
+        seq("//", optional($._space), optional($.inline_text)),
+        seq("//-", optional($._space), optional($.inline_text)),
+      ),
 
     block_expansion: ($) =>
-      choice($.extends_statement, $.include_statement, $.block_statement),
+      choice($._extends_statement, $._include_statement, $._block_statement),
 
-    extends_statement: ($) => seq("extends", $.reference),
+    _extends_statement: ($) => seq($.extends, $.reference),
 
-    include_statement: ($) => seq("include", $.reference, optional($._newline)),
+    _include_statement: ($) =>
+      seq($.include, $.reference, optional($._newline)),
 
-    block_statement: ($) =>
-      seq("block", $.reference, optional(seq($._newline, $.children))),
+    _block_statement: ($) =>
+      seq($.block, $.reference, optional(seq($._newline, $.children))),
+
+    mixin_definition: ($) =>
+      seq(
+        "mixin",
+        $.mixin_name,
+        optional(seq("(", optional($.mixin_parameters), ")")),
+        optional($._newline),
+        optional($.children),
+      ),
+
+    mixin_name: () => /\w+/,
+
+    mixin_parameters: ($) => seq($.parameter, repeat(seq(",", $.parameter))),
+
+    parameter: () => /\w+/,
+
+    mixin_call: ($) =>
+      prec.right(
+        seq(
+          "+",
+          $.mixin_name,
+          optional(seq("(", optional($.arguments), ")")),
+          optional($._newline),
+          optional($.children),
+        ),
+      ),
+
+    arguments: ($) =>
+      seq($._argument_choice, repeat(seq(",", $._argument_choice))),
+
+    _argument_choice: ($) => choice($.array, $.object, $._js_primitive),
+
+    argument: () => /[^,)\s]+/,
+
+    array: ($) =>
+      seq(
+        "[",
+        optional(seq($._array_element, repeat(seq(",", $._array_element)))),
+        "]",
+      ),
+
+    _array_element: ($) => choice($.object, $.array, $._js_primitive),
+
+    object: ($) =>
+      seq("{", optional(seq($.pair, repeat(seq(",", $.pair)))), "}"),
+
+    pair: ($) => seq($.key, ":", $._js_primitive),
+
+    key: () => /[\w]+/,
 
     tag: ($) =>
       prec.right(
@@ -70,7 +163,7 @@ module.exports = grammar({
 
     interpolation: ($) => seq("#{", $.expression, "}"),
 
-    expression: ($) => /[^\n}]+/,
+    expression: ($) => /[^,\s\(\)\{\}\[\]]+/,
 
     inline_text: ($) => repeat1(choice($.interpolation, /[^#\n]+/)),
 
@@ -104,6 +197,17 @@ module.exports = grammar({
       ),
 
     _children_choice: ($) =>
-      prec(1, choice($.tag, $.conditional, $.loop, $._newline)),
+      prec(
+        1,
+        choice(
+          $.tag,
+          $.conditional,
+          $.loop,
+          $.mixin_call,
+          $.block,
+          $.comment,
+          $._newline,
+        ),
+      ),
   },
 });

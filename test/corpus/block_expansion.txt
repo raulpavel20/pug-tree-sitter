@@ -6,9 +6,8 @@ extends layout
 ----
 (source_file
   (block_expansion
-    (extends_statement
-      (reference)
-    )
+    (extends)
+    (reference)
   )
 )
 
@@ -20,9 +19,8 @@ include header.pug
 ----
 (source_file
   (block_expansion
-    (include_statement
-      (reference)
-    )
+    (include)
+    (reference)
   )
 )
 
@@ -34,9 +32,8 @@ block content
 ----
 (source_file
   (block_expansion
-    (block_statement
-      (reference)
-    )
+    (block)
+    (reference)
   )
 )
 
@@ -49,13 +46,12 @@ block content
 ----
 (source_file
   (block_expansion
-    (block_statement
-      (reference)
-      (children
-        (tag
-          (tag_name)
-          (inline_text)
-        )
+    (block)
+    (reference)
+    (children
+      (tag
+        (tag_name)
+        (inline_text)
       )
     )
   )
@@ -72,19 +68,20 @@ block content
 ----
 (source_file
   (block_expansion
-    (extends_statement
-      (reference)))
+    (extends)
+    (reference)
+  )
   (block_expansion
-    (include_statement
-      (reference)))
+    (include)
+    (reference)
+  )
   (block_expansion
-    (block_statement
-      (reference)
-      (children
-        (tag
-          (tag_name)
-          (inline_text)
-        )
+    (block)
+    (reference)
+    (children
+      (tag
+        (tag_name)
+        (inline_text)
       )
     )
   )
