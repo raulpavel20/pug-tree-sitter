@@ -4,7 +4,7 @@ module.exports = grammar({
   externals: ($) => [$._newline, $._indent, $._dedent],
 
   rules: {
-    source_file: ($) => repeat(choice($.block_expansion, $.tag)),
+    source_file: ($) => repeat(choice($.block_expansion, $.tag, $.conditional)),
 
     block_expansion: ($) =>
       choice($.extends_statement, $.include_statement, $.block_statement),
@@ -27,6 +27,22 @@ module.exports = grammar({
           optional($.children),
         ),
       ),
+
+    conditional: ($) =>
+      choice($.if_statement, $.else_if_statement, $.else_statement),
+
+    if_statement: ($) =>
+      prec.right(seq("if", $.condition, optional(seq($._newline, $.children)))),
+
+    else_if_statement: ($) =>
+      prec.right(
+        seq("else if", $.condition, optional(seq($._newline, $.children))),
+      ),
+
+    else_statement: ($) =>
+      prec.right(seq("else", optional(seq($._newline, $.children)))),
+
+    condition: ($) => /[^\n]+/,
 
     tag_name: () => /\w(?:[-\w]*\w)?/,
 
@@ -58,6 +74,6 @@ module.exports = grammar({
         seq($._indent, repeat1($._children_choice), optional($._dedent)),
       ),
 
-    _children_choice: ($) => prec(1, choice($.tag, $._newline)),
+    _children_choice: ($) => prec(1, choice($.tag, $.conditional, $._newline)),
   },
 });

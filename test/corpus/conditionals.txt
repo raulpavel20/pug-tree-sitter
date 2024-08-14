@@ -16,6 +16,30 @@ if user.isAdmin
 )
 
 ==================
+Test If Statement in context
+==================
+
+if user.isAdmin
+  p Welcome, Admin!
+div
+  p Welcome, Guest!
+----
+(source_file
+  (conditional
+    (if_statement
+      (condition)
+      (children
+        (tag
+          (tag_name)
+          (inline_text)))))
+  (tag
+    (tag_name)
+    (children
+      (tag
+        (tag_name)
+        (inline_text)))))
+
+==================
 Test If-Else Statement
 ==================
 

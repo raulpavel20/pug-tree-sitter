@@ -88,7 +88,73 @@
       "required": false,
       "types": [
         {
+          "type": "conditional",
+          "named": true
+        },
+        {
           "type": "tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "condition",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "conditional",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "else_if_statement",
+          "named": true
+        },
+        {
+          "type": "else_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "else_if_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "children",
+          "named": true
+        },
+        {
+          "type": "condition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "else_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "children",
           "named": true
         }
       ]
@@ -110,6 +176,25 @@
     }
   },
   {
+    "type": "if_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "children",
+          "named": true
+        },
+        {
+          "type": "condition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "include_statement",
     "named": true,
     "fields": {},
@@ -125,6 +210,11 @@
     }
   },
   {
+    "type": "inline_text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -134,6 +224,10 @@
       "types": [
         {
           "type": "block_expansion",
+          "named": true
+        },
+        {
+          "type": "conditional",
           "named": true
         },
         {
@@ -199,6 +293,14 @@
     "named": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "else if",
+    "named": false
+  },
+  {
     "type": "extends",
     "named": false
   },
@@ -207,12 +309,12 @@
     "named": true
   },
   {
-    "type": "include",
+    "type": "if",
     "named": false
   },
   {
-    "type": "inline_text",
-    "named": true
+    "type": "include",
+    "named": false
   },
   {
     "type": "quoted_attribute_value",
